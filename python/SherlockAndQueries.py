@@ -9,14 +9,13 @@ def compute(n, m, a, b, c):
     
     for i in range(0, m):
         if b[i] in b_counts:
-            b_counts[b[i]] *= c[i] % mod
+            b_counts[b[i]] = (b_counts[b[i]] * c[i]) % mod
         else:
             b_counts[b[i]] = c[i]
         
     for i, factor in b_counts.iteritems():
-        for j in range(1, n/i + 1):
-            a[j*i-1] *= factor
-            a[j*i-1] %= 1000000007;
+        for j in range(i - 1, n, i):
+            a[j] = (a[j] * factor) % mod
     return a
 
 [n, m] = [int(x) for x in stdin.readline().split()]
